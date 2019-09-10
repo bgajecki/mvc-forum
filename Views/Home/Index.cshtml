@@ -1,0 +1,6 @@
+﻿@model IndexModel
+@{
+    ViewData["Title"] = "Strona główna";
+    await Html.RenderPartialAsync("~/Views/Topic/_listTopic.cshtml", Model.List);
+    await Html.RenderPartialAsync("~/Views/Topic/_addTopic.cshtml", Model.Topic);
+}

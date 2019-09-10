@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model TopicModel
+@{
+    var topic = Model.Topic;
+    var author = await UserManager.FindByIdAsync(topic.UserId);
+    var TopicId = topic.TopicId;
+    ViewData["Title"] = topic.Text;
+    Model.Post.TopicId = topic.TopicId;
+
+    <article class="topic">
+        <section class="author">
+            Autor: @author.UserName
+        </section>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                if (topic.UserId == UserManager.GetUserId(User))
+                {
+                    <section class="options">
+                        <a asp-action="EditTopic" asp-route-id="@TopicId">Edytuj</a>
+                        @{
+                            await Html.RenderPartialAsync("_deleteTopic", topic);
+                        }
+                    </section>
+                }
+            }
+        <section class="text">
+            @topic.Text
+        </section>
+    </article>
+
+    await Html.RenderPartialAsync("_enterTopic", topic);
+    await Html.RenderPartialAsync("~/Views/Post/_addPost.cshtml", Model.Post);
+}

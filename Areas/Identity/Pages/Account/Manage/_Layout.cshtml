@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    IgnoreSection("Scripts");
+}
+
+<h1>Skonfiguruj swoje konto</h1>
+
+<div>
+    <h4>Zmień ustawienia konta</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+

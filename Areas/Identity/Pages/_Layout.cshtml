@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- bootstrap -->
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+
+    <!-- Kaskadowe arkusze stylów -->
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/general.css" />
+        <link rel="stylesheet" href="~/css/navigation.css" />
+        <link rel="stylesheet" href="~/css/main.css" />
+        <link rel="stylesheet" href="~/css/options.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/general.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/navigation.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/main.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/options.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    <partial name="_Header" />
+    <main>
+        @RenderBody()
+    </main>
+    <partial name="_Footer" />
+ 
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

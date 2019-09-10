@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model Forum.Models.Database.Topic
+
+<article id="addTopic">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+
+        <a class="addItem" v-on:click="toggle">{{ text }}</a>
+        <form asp-controller="Topic" asp-action="AddTopic" v-if="isVisible">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label">Treść tematu:</label>
+                <textarea asp-for="Text" class="form-control" cols="200" rows="8"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <input asp-for="UserId" type="hidden" value="@user.Id" />
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+        <environment include="Development">
+            <script src="~/js/addTopic.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="~/js/addTopic.min.js" asp-append-version="true"></script>
+        </environment>
+    }
+    else
+    {
+        <p>Zaloguj się, a jeżeli nie masz jeszcze konta zarejestruj się by móc dodawać tematy!</p>
+    }
+</article>

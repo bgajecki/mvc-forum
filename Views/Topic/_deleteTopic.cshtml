@@ -1,0 +1,5 @@
+﻿@model  Forum.Models.Database.Topic
+<form asp-action="DeleteTopic" asp-route-id="@Model.TopicId">
+    <input type="hidden" asp-for="TopicId" />
+    <input type="submit" value="Usuń" />
+</form>

@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<Forum.Models.Database.Topic>
+
+@foreach (var item in Model)
+{
+    var author = await UserManager.FindByIdAsync(item.UserId);
+    <a asp-controller="Topic" asp-action="Index" asp-route-id="@item.TopicId">
+        <article class="topic">
+            <section class="author">
+                Autor: @author.UserName
+            </section>
+            <section class="text">
+                @Html.DisplayFor(modelItem => item.Text)
+            </section>
+        </article>
+    </a>
+}

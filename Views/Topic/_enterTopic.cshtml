@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@model Forum.Models.Database.Topic
+@{
+    foreach (var item in Model.Posts)
+    {
+        var author = await UserManager.FindByIdAsync(item.UserId);
+        <article class="post">
+            <section class="author">
+                Autor: @author.UserName
+            </section>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                if (item.UserId == author.Id)
+                {
+                    <section class="options">
+                        <a asp-controller="Post" asp-action="EditPost" asp-route-id="@item.PostId">Edytuj</a>
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Post/_deletePost.cshtml", item);
+                        }
+                    </section>
+                }
+            }
+            <section class="text">
+                @Html.DisplayFor(modelItem => item.Text)
+            </section>
+        </article>
+    }
+}

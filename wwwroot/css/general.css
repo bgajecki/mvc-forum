@@ -1,0 +1,26 @@
+﻿/* Selektory ogólne */
+body {
+    background-color: #1b1b1b;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: white;
+}
+
+form
+{
+    display: inline-block;
+}
