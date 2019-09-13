@@ -1,0 +1,18 @@
+﻿/* Dodawanie posta */
+#addPost {
+    padding: 5px;
+    text-align: center;
+}
+
+#addPost .btn-primary {
+    float: right;
+}
+
+#addPost a {
+    color: white;
+}
+
+#addPost form {
+    padding: 10px 20px;
+    text-align: left;
+}

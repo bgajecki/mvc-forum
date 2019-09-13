@@ -7,7 +7,8 @@
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
-
+        // Formularz dodania tematu wraz ze sprawdzenie czy użytkownik jest zalogowany
+        // Wykorzystuje skrypt addTopic.js
         <a class="addItem" v-on:click="toggle">{{ text }}</a>
         <form asp-controller="Topic" asp-action="AddTopic" v-if="isVisible">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

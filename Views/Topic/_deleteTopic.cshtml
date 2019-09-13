@@ -1,4 +1,5 @@
-﻿@model  Forum.Models.Database.Topic
+﻿@model Forum.Models.Database.Topic
+<!-- Formularz usuwania tematu -->
 <form asp-action="DeleteTopic" asp-route-id="@Model.TopicId">
     <input type="hidden" asp-for="TopicId" />
     <input type="submit" value="Usuń" />

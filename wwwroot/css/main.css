@@ -58,23 +58,7 @@ article > .options {
 }
 
 
-.options input {
-    background-color: inherit;
-    display: block;
-    padding: 6px 14px;
-    font-weight: 400;
-    box-sizing: border-box;
-    border-radius: 4px;
-    border: none;
-    float: left;
-}
-
-.options input:hover {
-    background-color: #007bff;
-    color: white;
-
-}
-
+/* Przycisk Edytuj(temat, post) */
 .options a {
     background-color: inherit;
     display: block;
@@ -90,65 +74,22 @@ article > .options {
     color: white;
 }
 
-
-/* Dodawanie tematu lub postu*/
-#addTopic {
-    padding: 5px;
-    text-align: center;
-}
-
-#addTopic .btn-primary {
-    float: right;
-}
-
-#addTopic a {
-    color: white;
-}
-
-#addTopic form {
-    padding: 10px 20px;
-    text-align: left;
-}
-
-#addPost {
-    padding: 5px;
-    text-align: center;
-}
-
-#addPost .btn-primary {
-    float: right;
-}
-
-#addPost a
-{
-    color: white;
-}
-
-#addPost form {
-    padding: 10px 20px;
-    text-align: left;
-}
-
-textarea {
-    width: auto;
-}
-
-.addItem {
+/* Przycisk Usuń(temat, post) */
+.options input {
+    background-color: inherit;
     display: block;
-    text-align: center;
+    padding: 6px 14px;
     font-weight: 400;
-    font-size: 36px;
-    background-color: #007bff;
     box-sizing: border-box;
     border-radius: 4px;
-    padding: 0 60px;
-    width: 100%;
+    border: none;
+    float: left;
 }
 
-.addItem:hover {
-    background-color: #0069d9;
-    border-color: #0069d9;
-    cursor: pointer;
+.options input:hover {
+    background-color: #007bff;
+    color: white;
+
 }
 
 /* O forum */

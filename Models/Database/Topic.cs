@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Forum.Models.Database
 {
+    // Klasa tematu
     [Table("Topic")]
     public class Topic
     {

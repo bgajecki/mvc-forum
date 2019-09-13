@@ -5,6 +5,7 @@
 @foreach (var item in Model)
 {
     var author = await UserManager.FindByIdAsync(item.UserId);
+    // Wyświetlenie każdego tematu na stronie
     <a asp-controller="Topic" asp-action="Index" asp-route-id="@item.TopicId">
         <article class="topic">
             <section class="author">

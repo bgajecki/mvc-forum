@@ -1,0 +1,18 @@
+﻿/* Dodawanie tematu */
+#addTopic {
+    padding: 5px;
+    text-align: center;
+}
+
+#addTopic .btn-primary {
+    float: right;
+}
+
+#addTopic a {
+    color: white;
+}
+
+#addTopic form {
+    padding: 10px 20px;
+    text-align: left;
+}

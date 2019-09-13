@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Models.Database
 {
+    // Klasa kontekstu bazy danych dziedzicząca po IdentityDbContext, składająca się również z postów i tematów 
     public class DatabaseContext : IdentityDbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options)

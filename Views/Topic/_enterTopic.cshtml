@@ -6,6 +6,7 @@
     foreach (var item in Model.Posts)
     {
         var author = await UserManager.FindByIdAsync(item.UserId);
+        // Wyświetlenie postów dla danego tematu na stronie
         <article class="post">
             <section class="author">
                 Autor: @author.UserName

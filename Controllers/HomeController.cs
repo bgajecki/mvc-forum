@@ -21,10 +21,12 @@ namespace Forum.Controllers
         {
             _context = context;
         }
+
+        // Tworzy model typu IndexViewModel, wypełnia go danymi, a następnie wysyła do widoku ~/Views/Home/Index
         public async Task<IActionResult> Index()
         {
-            var model = new IndexModel();
-            model.List = await _context.Topic.ToListAsync();
+            var model = new IndexViewModel();
+            model.List = await _context.Topic.ToListAsync(); // Pobieranie listy tematów z bazy danych
             model.Topic = new Topic();
             return View(model);
         }
@@ -34,6 +36,7 @@ namespace Forum.Controllers
             return View();
         }
 
+        // W przypadku błędu, zwraca model zawierający dane na jego temat, do widoku ~/Views/Shared/Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

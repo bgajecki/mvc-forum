@@ -37,11 +37,14 @@ namespace Forum
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Dodawanie kontekstu bazy danych i połączenie się poprzez użycie ConnectionString
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+            // Dodanie domyślnej obsługi Identity dla użytkowników przy wykorzystaniu wcześniej dodanego kontekstu bazy danych
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<DatabaseContext>();
 
+            // Ustawienia dla Identity
             services.Configure<IdentityOptions>(options =>
             {
                 // Opcje hasła
@@ -52,12 +55,15 @@ namespace Forum
                 options.Password.RequiredLength = 7;
                 options.Password.RequiredUniqueChars = 0;
 
+                // Opcje blokady
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(0);
                 options.Lockout.MaxFailedAccessAttempts = 0;
                 options.Lockout.AllowedForNewUsers = true;
 
+                // Dopuszczalne znaki w haśle
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                // Czy wymagany e-mail
                 options.User.RequireUniqueEmail = false;
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -86,7 +92,7 @@ namespace Forum
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Posts}/{action=Index}/{id?}");
             });
         }
     }

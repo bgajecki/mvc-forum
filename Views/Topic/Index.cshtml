@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@model TopicModel
+@model TopicViewModel
 @{
     var topic = Model.Topic;
     var author = await UserManager.FindByIdAsync(topic.UserId);
@@ -9,6 +9,7 @@
     ViewData["Title"] = topic.Text;
     Model.Post.TopicId = topic.TopicId;
 
+    // Wyświetlenie wybranego tematu, wraz z jego postami(_enterTopic) na stronie
     <article class="topic">
         <section class="author">
             Autor: @author.UserName

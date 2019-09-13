@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Forum.Models.Database
 {
+    // Klasa postu
     [Table("Post")]
     public class Post
     {

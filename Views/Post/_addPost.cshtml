@@ -6,7 +6,8 @@
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
-
+        // Formularz służący do dodawania postów wraz ze sprawdzenie czy użytkownik jest zalogowany
+        // Wykorzystuje skrypt addPost.js
         <a class="addItem" v-on:click="toggle">{{ text }}</a>
         <form asp-controller="Post" asp-action="AddPost" v-if="isVisible">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

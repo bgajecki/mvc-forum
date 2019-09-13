@@ -1,4 +1,5 @@
-﻿@model  Forum.Models.Database.Post
+﻿@model Forum.Models.Database.Post
+<!-- Formularz usuwania posta -->
 <form asp-controller="Post" asp-action="DeletePost" asp-route-id="@Model.PostId">
     <input type="hidden" asp-for="PostId" />
     <input type="submit" value="Usuń" />

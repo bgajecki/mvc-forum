@@ -1,4 +1,5 @@
 ﻿@model Forum.Models.Database.Post
+<!-- Formularz edycji posta -->
 <article id="addPost">
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -9,6 +10,7 @@
             <span asp-validation-for="Text" class="text-danger"></span>
         </div>
         <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TopicId" />
         <div class="form-group">
             <input type="submit" value="Zapisz" class="btn btn-primary" />
         </div>
