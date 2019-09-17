@@ -6,14 +6,9 @@
 {
     var author = await UserManager.FindByIdAsync(item.UserId);
     // Wyświetlenie każdego tematu na stronie
-    <a asp-controller="Topic" asp-action="Index" asp-route-id="@item.TopicId">
-        <article class="topic">
-            <section class="author">
-                Autor: @author.UserName
-            </section>
-            <section class="text">
-                @Html.DisplayFor(modelItem => item.Text)
-            </section>
-        </article>
-    </a>
+    <article id="forum">
+        <a asp-controller="Topic" asp-action="Index" asp-route-id="@item.TopicId">
+            <topic author="@author" text="@item.Text"></topic>
+        </a>
+    </article>
 }

@@ -4,4 +4,10 @@
     // Rozdziela model i przydziela każdej części odpowiednie dane
     await Html.RenderPartialAsync("~/Views/Topic/_listTopic.cshtml", Model.List);
     await Html.RenderPartialAsync("~/Views/Topic/_addTopic.cshtml", Model.Topic);
+    <environment include="Development">
+        <script src="~/js/addTopic.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/addTopic.min.js" asp-append-version="true"></script>
+    </environment>
 }

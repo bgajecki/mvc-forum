@@ -2,13 +2,12 @@
     el: '#addTopic',
     data: {
         isVisible: false,
-        text: '↓  Dodaj temat  ↓',
-        
+        text: '↓  Dodaj temat  ↓'
     },
     methods: {
-        toggle() {
+        toggle: function() {
             this.isVisible = !this.isVisible
             this.isVisible ? this.text = '↑  Zwiń  ↑' : this.text = '↓  Dodaj temat  ↓'
         }
-    },
+    }
 })

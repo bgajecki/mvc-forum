@@ -6,26 +6,25 @@
     foreach (var item in Model.Posts)
     {
         var author = await UserManager.FindByIdAsync(item.UserId);
+
+        var isLogged = false;
+        if (SignInManager.IsSignedIn(User))
+        {
+            isLogged = item.UserId == author.Id;
+        }
+
         // Wyświetlenie postów dla danego tematu na stronie
-        <article class="post">
-            <section class="author">
-                Autor: @author.UserName
-            </section>
-            @if (SignInManager.IsSignedIn(User))
-            {
-                if (item.UserId == author.Id)
-                {
-                    <section class="options">
-                        <a asp-controller="Post" asp-action="EditPost" asp-route-id="@item.PostId">Edytuj</a>
-                        @{
-                            await Html.RenderPartialAsync("~/Views/Post/_deletePost.cshtml", item);
-                        }
-                    </section>
+        <post author="@author" text="@item.Text" logged="@isLogged">
+            <template v-slot:delete>
+                @{
+                    await Html.RenderPartialAsync("~/Views/Post/_deletePost.cshtml", item);
                 }
-            }
-            <section class="text">
-                @Html.DisplayFor(modelItem => item.Text)
-            </section>
-        </article>
+            </template>
+            <template v-slot:edit>
+                @{
+                    await Html.RenderPartialAsync("~/Views/Post/_editPost.cshtml", item);
+                }
+            </template>
+        </post>
     }
 }

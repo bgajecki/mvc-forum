@@ -1,0 +1,20 @@
+﻿.edit {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 5px solid darkgreen;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.edit .btn-primary {
+    float: right;
+}
+
+.edit a {
+    color: white;
+}
+
+.edit form {
+    padding: 10px 20px;
+    text-align: left;
+}

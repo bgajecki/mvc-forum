@@ -1,0 +1,15 @@
+﻿@model Forum.Models.Database.Topic
+<!-- Formularz edycji tematu -->
+<form asp-action="EditTopic" asp-route-id="@Model.TopicId">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="TopicId" />
+    <div class="form-group">
+        <label asp-for="Text" class="control-label">Treść tematu:</label>
+        <textarea asp-for="Text" class="form-control" cols="200" rows="8"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group">
+        <input type="submit" value="Zapisz" class="btn btn-primary" />
+    </div>
+</form>

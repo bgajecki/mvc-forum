@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="~/css/main.css" />
         <link rel="stylesheet" href="~/css/addTopic.css" />
         <link rel="stylesheet" href="~/css/addPost.css" />
+        <link rel="stylesheet" href="~/css/edit.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/general.min.css" asp-append-version="true" />
@@ -31,19 +32,17 @@
         <link rel="stylesheet" href="~/css/main.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/addTopic.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/addPost.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/edit.min.css" asp-append-version="true" />
     </environment>
-
-    <partial name="_ValidationScriptsPartial" />
+    <!-- Podstawowe skrypty strony -->
+    <partial name="_ScriptsPartial" />
 </head>
 <body>
-    
+
     <partial name="_Header" />
     <main>
         @RenderBody()
     </main>
     <partial name="_Footer" />
-
-
-    @RenderSection("Scripts", required: false)
 </body>
 </html>
