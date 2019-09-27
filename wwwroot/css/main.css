@@ -102,3 +102,56 @@ article > .options {
 article {
     padding: 10px 10px;
 }
+
+#page {
+    border-bottom: 5px solid darkgreen;
+    padding-bottom: 70px;
+}
+#page a {
+    background-color: inherit;
+    display: inline-block;
+    padding: 6px 14px;
+    font-weight: 500;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+    float: left;
+}
+
+#page a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#page > div
+{
+    float: right;
+    display: inline-block;
+}
+
+#page > div > div {
+    float: left;
+    display: inline-block;
+    font-weight: 500;
+    padding: 6px 14px;
+}
+
+#page form
+{
+    float: left;
+    display: inline-block;
+}
+
+#page input {
+    background-color: inherit;
+    display: inline-block;
+    padding: 6px 14px;
+    font-weight: 500;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+}
+#page input:hover {
+    background-color: #007bff;
+    color: white;
+}

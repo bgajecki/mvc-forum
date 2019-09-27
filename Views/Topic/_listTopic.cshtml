@@ -2,13 +2,36 @@
 @inject UserManager<IdentityUser> UserManager
 @model IEnumerable<Forum.Models.Database.Topic>
 
-@foreach (var item in Model)
-{
-    var author = await UserManager.FindByIdAsync(item.UserId);
-    // Wyświetlenie każdego tematu na stronie
-    <article id="forum">
-        <a asp-controller="Topic" asp-action="Index" asp-route-id="@item.TopicId">
-            <topic author="@author" text="@item.Text"></topic>
+<article id="forum">
+@{
+    var topics = Model.Reverse();
+
+    int indexStart = ViewBag.Page * ViewBag.MaxTopics;
+    int indexEnd = indexStart + ViewBag.MaxTopics;
+    int pageNumber = ViewBag.Page;
+    int pageNumberDiv = pageNumber + 1;
+
+    for (int i = indexStart; i < indexEnd && i < topics.Count(); i++)
+    {
+        var topic = topics.ElementAt(i);
+        var author = await UserManager.FindByIdAsync(topic.UserId);
+        // Wyświetlenie każdego tematu na stronie
+
+        <a asp-controller="Topic" asp-action="Index" asp-route-id="@topic.TopicId">
+            <topic author="@author" text="@topic.Text"></topic>
         </a>
-    </article>
+    }
 }
+</article>
+<article id="page">
+    <div>
+        <a asp-action="FirstPage"><<</a>
+        <a asp-action="DecPage" asp-route-id="@pageNumber"><</a>
+        <div>
+            @pageNumberDiv
+        </div>
+        <a asp-action="IncPage" asp-route-id="@pageNumber">></a>
+        <a asp-action="LastPage">>></a>
+        <div style="clear:both"></div>
+    </div>
+</article>

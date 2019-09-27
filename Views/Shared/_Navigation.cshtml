@@ -1,4 +1,6 @@
-﻿<!-- Pasek nawigacj -->
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+<!-- Pasek nawigacj -->
 <nav id="navigation">
     <div id="title">
         <a asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
@@ -7,6 +9,12 @@
         <div class="element">
             <a asp-area="" asp-controller="Home" asp-action="About">O forum</a>
         </div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="element">
+                <a asp-area="" asp-controller="Chat" asp-action="Index">Czat</a>
+            </div>
+        }
     </div>
     <div id="options">
         <partial name="_LoginPartial" />

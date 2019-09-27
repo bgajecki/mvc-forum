@@ -3,28 +3,68 @@
 @inject SignInManager<IdentityUser> SignInManager
 @model Forum.Models.Database.Topic
 @{
-    foreach (var item in Model.Posts)
-    {
-        var author = await UserManager.FindByIdAsync(item.UserId);
+    var posts = Model.Posts;
+    int indexStart = ViewBag.Page * ViewBag.MaxPosts;
+    int indexEnd = indexStart + ViewBag.MaxPosts;
+    int pageNumber = ViewBag.Page;
+    int pageNumberDiv = pageNumber + 1;
+    int TopicId = Model.TopicId;
 
+    for (int i = indexStart; i < indexEnd && i < posts.Count(); i++)
+    {
+        var post = posts.ElementAt(i);
+        var author = await UserManager.FindByIdAsync(post.UserId);
         var isLogged = false;
+
         if (SignInManager.IsSignedIn(User))
         {
-            isLogged = item.UserId == author.Id;
+            isLogged = post.UserId == author.Id;
         }
 
         // Wyświetlenie postów dla danego tematu na stronie
-        <post author="@author" text="@item.Text" logged="@isLogged">
+        <post author="@author" text="@post.Text" logged="@isLogged">
             <template v-slot:delete>
                 @{
-                    await Html.RenderPartialAsync("~/Views/Post/_deletePost.cshtml", item);
+                    await Html.RenderPartialAsync("~/Views/Post/_deletePost.cshtml", post);
                 }
             </template>
             <template v-slot:edit>
                 @{
-                    await Html.RenderPartialAsync("~/Views/Post/_editPost.cshtml", item);
+                    await Html.RenderPartialAsync("~/Views/Post/_editPost.cshtml", post);
                 }
             </template>
         </post>
     }
 }
+<article id="page">
+    <div>
+        <form asp-action="Index">
+            <input type="hidden" asp-for="TopicId" value="@TopicId" />
+            <input type="hidden" asp-for="@pageNumber" value="@pageNumber" />
+            <input type="hidden" name="option" value="0" />
+            <input type="submit" value="<<" />
+        </form>
+        <form asp-action="Index">
+            <input type="hidden" asp-for="TopicId" value="@TopicId" />
+            <input type="hidden" asp-for="@pageNumber" value="@pageNumber" />
+            <input type="hidden" name="option" value="1" />
+            <input type="submit" value="<" />
+        </form>
+        <div>
+            @pageNumberDiv
+        </div>
+        <form asp-action="Index">
+            <input type="hidden" asp-for="TopicId" value="@TopicId" />
+            <input type="hidden" asp-for="@pageNumber" value="@pageNumber" />
+            <input type="hidden" name="option" value="2" />
+            <input type="submit" value=">" />
+        </form>
+        <form asp-action="Index">
+            <input type="hidden" asp-for="TopicId" value="@TopicId" />
+            <input type="hidden" asp-for="@pageNumber" value="@pageNumber" />
+            <input type="hidden" name="option" value="3" />
+            <input type="submit" value=">>" />
+        </form>
+        <div style="clear:both"></div>
+    </div>
+</article>

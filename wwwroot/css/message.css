@@ -1,0 +1,38 @@
+﻿.message {
+    border-top: dashed 2px gray;
+}
+
+.message section {
+    float: left;
+    display: inline-block;
+    padding: 10px;
+}
+
+.message > .options{
+    float: right;
+}
+
+.message > .date{
+    float: right;
+}
+
+.message > .text
+{
+    margin: auto;
+    font-weight: normal;
+    font-size: large;
+    clear: none;
+}
+
+.addMessage {
+    padding: 5px;
+}
+
+.addMessage form {
+    padding: 10px 20px;
+}
+
+.addMessage input {
+    width: 400px;
+    height: 30px;
+}

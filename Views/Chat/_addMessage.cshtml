@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@model Forum.Models.Database.Message
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+<form asp-action="AddMessage">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="Text" type="text" placeholder="Wpisz wiadomość i zatwierdź ją przyciskiem ENTER" autocomplete="off" />
+    <input asp-for="UserId" type="hidden" value="@user.Id" />
+    <input type="submit" style="display:none" />
+</form>
+

@@ -52,19 +52,8 @@ namespace Forum.Controllers
             return RedirectToAction("Index", "Topic", new { id = post.TopicId });
         }
 
-        // Obsługuje link przesłany przez przycisk Edytuj i zwraca widok ~/Views/Post/EditPost wraz z modelem owego posta
-        public async Task<IActionResult> EditPost(int? id)
-        {
-            if (id == null)
-                return NotFound();
 
-            var post = await _context.Post.FindAsync(id);
-            if (post == null)
-                return NotFound();
-            return View(post);
-        }
-
-        // Obsługuje formularz przesłany od widoku ~/Views/Post/EditPost i po sprawdzeniu poprawności, zmienia jego dane
+        // Obsługuje formularz przesłany od widoku ~/Views/Post/_editPost i po sprawdzeniu poprawności, zmienia jego dane
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -89,10 +78,9 @@ namespace Forum.Controllers
                     else
                         throw;
                 }
-                // Powróć do wybranego wcześniej tematu
-                return RedirectToAction("Index", "Topic", new { id = post.TopicId });
             }
-            return View(post);
+            // Powróć do wybranego wcześniej tematu
+            return RedirectToAction("Index", "Topic", new { id = post.TopicId });
         }
 
         // Obsługuje formularz usunięcia postu wysłany przez przycisk Usuń

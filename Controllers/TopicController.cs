@@ -16,17 +16,20 @@ namespace Forum.Controllers
     public class TopicController : Controller
     {
         private readonly DatabaseContext _context;
-
+        private const int maxPosts = 10;
         public TopicController(DatabaseContext context)
         {
             _context = context;
         }
+        
 
         // Zwraca do widoku ~/Views/Topic/Index model z tematem do którego zostały przypasowane posty, a także strukture posta
         public async Task<IActionResult> Index(int? id)
-        {
+         {
             if (id == null)
                 return NotFound();
+            ViewBag.Page = 0;
+            ViewBag.MaxPosts = maxPosts;
             // Leniwe ładowanie - dopasuj posty do tematu o konkretnym Id
             var model = new TopicViewModel();
             model.Topic = await _context.Topic
@@ -39,6 +42,65 @@ namespace Forum.Controllers
             model.Post = new Post();
 
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(int id, int page, int option)
+        {
+            switch(option)
+            {
+                case 0:
+                    ViewBag.Page = 0;
+                    break;
+                case 1:
+                    ViewBag.Page = DecPage(page);
+                    break;
+                case 2:
+                    ViewBag.Page = IncPage(page);
+                    break;
+                case 3:
+                    ViewBag.Page = await LastPage(id);
+                    break;
+            }
+            ViewBag.MaxPosts = maxPosts;
+            // Leniwe ładowanie - dopasuj posty do tematu o konkretnym Id
+            var model = new TopicViewModel();
+            model.Topic = await _context.Topic
+            .Where(m => m.TopicId == id)
+            .Include(p => p.Posts)
+            .FirstOrDefaultAsync();
+
+            if (model.Topic == null)
+                return NotFound();
+            model.Post = new Post();
+
+            return View(model);
+        }
+        // Opcja 0
+        private int IncPage(int page)
+        {
+            if ((page + 1) * maxPosts < _context.Topic.Count())
+                page++;
+            return page;
+        }
+        // Opcja 1
+        private int DecPage(int page)
+        {
+            if (page > 0)
+                page--;
+            return page;
+        }
+        // Opcja 3
+        private async Task<int> LastPage(int id)
+        {
+            Topic topic = await _context.Topic
+            .Where(m => m.TopicId == id)
+            .Include(p => p.Posts)
+            .FirstOrDefaultAsync();
+
+            int postsCount = topic.Posts.Count();
+            int floor = (int)Math.Floor((double)(postsCount / maxPosts));
+            int page = floor * maxPosts < postsCount ? floor : floor - 1;
+            return page;
         }
 
         // Obsługuje formularz dodawania tematów
@@ -55,19 +117,8 @@ namespace Forum.Controllers
             // Powróć do stony głównej
             return RedirectToAction("Index", "Home");
         }
-        // Obsługuje link przesłany przez przycisk Edytuj i zwraca widok ~/Views/Topic/EditPost wraz z modelem owego tematu
-        public async Task<IActionResult> EditTopic(int? id)
-        {
-            if (id == null)
-                return NotFound();
 
-            var topic = await _context.Topic.FindAsync(id);
-            if (topic == null)
-                return NotFound();
-            return View(topic);
-        }
-
-        // Obsługuje formularz przesłany od widoku ~/Views/Topic/EditPost i po sprawdzeniu poprawności, zmienia jego dane
+        // Obsługuje formularz przesłany od widoku ~/Views/Topic/_editTopic i po sprawdzeniu poprawności, zmienia jego dane
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -92,10 +143,8 @@ namespace Forum.Controllers
                     else
                         throw;
                 }
-                // Powróć do stony głównej
-                return RedirectToAction("Index", "Home");
             }
-            return View(topic);
+            return RedirectToAction("Index", "Home");
         }
 
         // Obsługuje formularz usunięcia tematu wysłany przez przycisk Usuń

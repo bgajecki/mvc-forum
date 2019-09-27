@@ -1,9 +1,9 @@
-﻿@model IndexViewModel
+﻿@model IndexViewModel<Forum.Models.Database.Topic>
 @{
     ViewData["Title"] = "Strona główna";
     // Rozdziela model i przydziela każdej części odpowiednie dane
     await Html.RenderPartialAsync("~/Views/Topic/_listTopic.cshtml", Model.List);
-    await Html.RenderPartialAsync("~/Views/Topic/_addTopic.cshtml", Model.Topic);
+    await Html.RenderPartialAsync("~/Views/Topic/_addTopic.cshtml", Model.Element);
     <environment include="Development">
         <script src="~/js/addTopic.js"></script>
     </environment>

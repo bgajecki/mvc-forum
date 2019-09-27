@@ -1,6 +1,5 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
 
 <!-- Opcje zwi¹zane z kontem na pasku nawigacji -->
 @if (SignInManager.IsSignedIn(User))

@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@model IndexViewModel<Forum.Models.Database.Message>
+<article class="addMessage">
+@{ 
+    await Html.RenderPartialAsync("_addMessage", Model.Element);
+}
+</article>
+<article id="forum">
+@{
+    ViewData["Title"] = "Czat";
+    foreach (var item in Model.List.Reverse())
+    {
+        var author = await UserManager.FindByIdAsync(item.UserId);
+        <message author="@author" text="@item.Text" date="@item.Date">
+            @{
+                await Html.RenderPartialAsync("_deleteMessage", item);
+            }
+        </message>
+    }
+}
+</article>

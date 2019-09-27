@@ -1,0 +1,6 @@
+﻿@model Forum.Models.Database.Message
+<!-- Formularz usuwania wiadomości czatu -->
+<form asp-action="DeleteMessage" asp-route-id="@Model.MessageId">
+    <input type="hidden" asp-for="MessageId" />
+    <input type="submit" value="Usuń" />
+</form>

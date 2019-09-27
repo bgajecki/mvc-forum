@@ -17,18 +17,52 @@ namespace Forum.Controllers
     {
        
         private readonly DatabaseContext _context;
+        private const int maxTopics = 10;
         public HomeController(DatabaseContext context)
         {
             _context = context;
+
+
         }
 
         // Tworzy model typu IndexViewModel, wypełnia go danymi, a następnie wysyła do widoku ~/Views/Home/Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var model = new IndexViewModel();
+            ViewBag.Page = id == null ? 0 : id;
+            ViewBag.MaxTopics = maxTopics;
+
+            var model = new IndexViewModel<Topic>();
             model.List = await _context.Topic.ToListAsync(); // Pobieranie listy tematów z bazy danych
-            model.Topic = new Topic();
+            model.Element = new Topic();
+
             return View(model);
+        }
+
+        public IActionResult IncPage(int id)
+        {
+            if ((id + 1) * maxTopics < _context.Topic.Count())
+                id++;
+            return RedirectToAction(nameof(Index), new { id });
+        }
+
+        public IActionResult DecPage(int id)
+        {
+            if (id > 0)
+              id--;
+            return RedirectToAction(nameof(Index), new { id });
+        }
+
+        public IActionResult FirstPage()
+        {
+            return RedirectToAction(nameof(Index), new { id = 0 });
+        }
+
+        public IActionResult LastPage()
+        {
+            int topicsCount = _context.Topic.Count();
+            int floor = (int)Math.Floor((double)(topicsCount / maxTopics));
+            int page = floor * maxTopics < topicsCount ? floor : floor - 1;
+            return RedirectToAction(nameof(Index), new { id = page });
         }
 
         public IActionResult About()

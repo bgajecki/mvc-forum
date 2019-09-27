@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Forum.Models
 {
-    // Model do przesyłania informacji z kontrolki HomeController do widoku ~/Views/Home/Index
-    public class IndexViewModel
+    // Model do przesyłania informacji
+    public class IndexViewModel<T>
     {
-        public IEnumerable<Forum.Models.Database.Topic> List { get; set; }
-        public Forum.Models.Database.Topic Topic { get; set; }
+        public IEnumerable<T> List { get; set; }
+        public T Element { get; set; }
     }
 }

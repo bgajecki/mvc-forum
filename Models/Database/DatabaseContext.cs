@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Forum.Models.Database;
 
 namespace Forum.Models.Database
 {
@@ -16,5 +17,7 @@ namespace Forum.Models.Database
         {}
         public DbSet<Post> Post { get; set; }
         public DbSet<Topic> Topic { get; set; }
+        public DbSet<Message> Message { get; set; }
     }
 }
+
